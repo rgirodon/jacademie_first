@@ -1,5 +1,7 @@
 package org.jacademie.first.domain;
 
+import org.jacademie.first.constants.Constants;
+
 public class CompteCourant extends Compte {
 
 	private Double montantDecouvertAutorise;
@@ -17,6 +19,18 @@ public class CompteCourant extends Compte {
 		super(numero, intitule, solde);
 		
 		this.montantDecouvertAutorise = montantDecouvertAutorise;
+	}
+	
+	@Override
+	public void debiter(Double montant) {
+		
+		if ((this.getSolde() + this.montantDecouvertAutorise - montant < 0)) {
+			
+			System.out.println(Constants.DEBIT_REFUSE);
+		}
+		else {
+			super.debiter(montant);
+		}
 	}
 	
 	@Override
