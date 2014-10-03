@@ -14,6 +14,8 @@ public class TestDebit {
 		ce.debiter(200.0);
 		System.out.println("Apres 2e debit : " + ce);
 		
+		System.out.println("");
+		
 		CompteCourant cc = new CompteCourant("CC1", "CC1", 1000.0, 200.0);
 		System.out.println("Au debut : " + cc);
 		cc.debiter(900.0);

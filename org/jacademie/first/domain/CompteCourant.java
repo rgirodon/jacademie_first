@@ -1,6 +1,6 @@
 package org.jacademie.first.domain;
 
-import org.jacademie.first.constants.Constants;
+import static org.jacademie.first.constants.Constants.*;
 
 public class CompteCourant extends Compte {
 
@@ -22,15 +22,9 @@ public class CompteCourant extends Compte {
 	}
 	
 	@Override
-	public void debiter(Double montant) {
+	protected boolean isDebitAutorise(Double montant) {
 		
-		if ((this.getSolde() + this.montantDecouvertAutorise - montant < 0)) {
-			
-			System.out.println(Constants.DEBIT_REFUSE);
-		}
-		else {
-			super.debiter(montant);
-		}
+		return (this.getSolde() + this.montantDecouvertAutorise - montant >= 0);
 	}
 	
 	@Override

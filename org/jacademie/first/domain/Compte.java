@@ -1,5 +1,7 @@
 package org.jacademie.first.domain;
 
+import static org.jacademie.first.constants.Constants.DEBIT_REFUSE;
+
 abstract public class Compte {
 
 	private String numero;
@@ -35,9 +37,17 @@ abstract public class Compte {
 	
 	public void debiter(Double montant) {
 		
-		this.solde = this.solde - montant;
+		if (!this.isDebitAutorise(montant)) {
+			
+			System.out.println(DEBIT_REFUSE);
+		}
+		else {
+			this.solde = this.solde - montant;
+		}
 	}
 	
+	abstract protected boolean isDebitAutorise(Double montant);
+
 	@Override
 	public String toString() {
 		return "Compte [numero=" + numero + ", intitule=" + intitule

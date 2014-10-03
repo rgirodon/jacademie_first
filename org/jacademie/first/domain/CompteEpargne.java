@@ -22,15 +22,9 @@ public class CompteEpargne extends Compte {
 	}
 	
 	@Override
-	public void debiter(Double montant) {
+	protected boolean isDebitAutorise(Double montant) {
 		
-		if ((this.getSolde() - montant) < 0) {
-			
-			System.out.println(Constants.DEBIT_REFUSE);
-		}
-		else {
-			super.debiter(montant);
-		}
+		return (this.getSolde() - montant >= 0);
 	}
 	
 	@Override
