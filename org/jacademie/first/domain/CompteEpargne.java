@@ -1,6 +1,5 @@
 package org.jacademie.first.domain;
 
-import org.jacademie.first.constants.Constants;
 
 public class CompteEpargne extends Compte {
 	

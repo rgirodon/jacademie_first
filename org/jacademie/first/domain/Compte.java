@@ -2,7 +2,9 @@ package org.jacademie.first.domain;
 
 import static org.jacademie.first.constants.Constants.DEBIT_REFUSE;
 
-abstract public class Compte {
+import org.jacademie.first.util.SoldeConsultable;
+
+abstract public class Compte implements SoldeConsultable {
 
 	private String numero;
 	
@@ -30,6 +32,12 @@ abstract public class Compte {
 		}
 	}
 
+	@Override
+	public Double consulteSolde() {
+		
+		return this.getSolde();
+	}
+	
 	public void crediter(Double montant) {
 		
 		this.solde = this.solde + montant;
