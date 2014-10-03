@@ -46,11 +46,13 @@ abstract public class Compte {
 		}
 	}
 	
+	abstract public TypeCompte getTypeCompte();
+	
 	abstract protected boolean isDebitAutorise(Double montant);
 
 	@Override
 	public String toString() {
-		return "Compte [numero=" + numero + ", intitule=" + intitule
+		return this.getTypeCompte() + " [numero=" + numero + ", intitule=" + intitule
 				+ ", solde=" + solde + "]";
 	}
 

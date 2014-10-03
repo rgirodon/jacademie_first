@@ -27,6 +27,12 @@ public class CompteCourant extends Compte {
 		return (this.getSolde() + this.montantDecouvertAutorise - montant >= 0);
 	}
 	
+	@Override
+	public TypeCompte getTypeCompte() {
+		
+		return TypeCompte.COMPTE_COURANT;
+	}
+	
 	public void methodeDeCompteCourant() {
 		System.out.println("Methode de Compte Courant !");
 	}
@@ -38,7 +44,7 @@ public class CompteCourant extends Compte {
 		
 		result.append(super.toString());
 		
-		result.append(" (CompteCourant, montantDecouvertAutorise : " + this.montantDecouvertAutorise + ")");
+		result.append(" (montantDecouvertAutorise : " + this.montantDecouvertAutorise + ")");
 		
 		return result.toString();
 	}

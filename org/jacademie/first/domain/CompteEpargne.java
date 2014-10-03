@@ -28,11 +28,17 @@ public class CompteEpargne extends Compte {
 	}
 	
 	@Override
+	public TypeCompte getTypeCompte() {
+		
+		return TypeCompte.COMPTE_EPARGNE;
+	}
+	
+	@Override
 	public String toString() {
 		
 		String result = super.toString();
 		
-		result += " (CompteEpargne, tauxInteret : " + this.tauxInteret + ")";
+		result += " (tauxInteret : " + this.tauxInteret + ")";
 		
 		return result;
 	}
