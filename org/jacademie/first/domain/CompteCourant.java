@@ -27,6 +27,10 @@ public class CompteCourant extends Compte {
 		return (this.getSolde() + this.montantDecouvertAutorise - montant >= 0);
 	}
 	
+	public void methodeDeCompteCourant() {
+		System.out.println("Methode de Compte Courant !");
+	}
+	
 	@Override
 	public String toString() {
 		
