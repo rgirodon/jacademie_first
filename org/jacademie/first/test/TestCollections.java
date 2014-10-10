@@ -8,6 +8,8 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import org.jacademie.first.domain.Point;
+
 public class TestCollections {
 
 	public static void main(String[] args) {
@@ -108,5 +110,29 @@ public class TestCollections {
 			
 			System.out.println("Entry : " + entry.getKey() + " >> " + entry.getValue());
 		}
+				
+		System.out.println("");
+		
+		Collection<Point> listPoints = new ArrayList<>();
+		listPoints.add(new Point(0, 0));
+		listPoints.add(new Point(1, 0));
+		listPoints.add(new Point(0, 1));
+		listPoints.add(new Point(1, 1));
+		listPoints.add(new Point(0, 0));
+		
+		System.out.println("ListPoints : " + listPoints);
+		System.out.println("Size listPoints : " + listPoints.size());
+		
+		System.out.println("");
+		
+		Collection<Point> setPoints = new HashSet<>();
+		setPoints.add(new Point(0, 0));
+		setPoints.add(new Point(1, 0));
+		setPoints.add(new Point(0, 1));
+		setPoints.add(new Point(1, 1));
+		setPoints.add(new Point(0, 0));
+		
+		System.out.println("setPoints : " + setPoints);
+		System.out.println("Size setPoints : " + setPoints.size());
 	}
 }
