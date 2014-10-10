@@ -28,6 +28,12 @@ public class CompteCourant extends Compte {
 	}
 	
 	@Override
+	protected boolean isCreditAutorise(Double montant) {
+		
+		return Boolean.TRUE;
+	}
+	
+	@Override
 	public TypeCompte getTypeCompte() {
 		
 		return TypeCompte.COMPTE_COURANT;

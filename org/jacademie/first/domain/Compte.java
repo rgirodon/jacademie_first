@@ -2,6 +2,9 @@ package org.jacademie.first.domain;
 
 import static org.jacademie.first.constants.Constants.DEBIT_REFUSE;
 
+import org.jacademie.first.constants.Constants;
+import org.jacademie.first.exception.CreditException;
+import org.jacademie.first.exception.DebitException;
 import org.jacademie.first.util.SoldeConsultable;
 
 abstract public class Compte implements SoldeConsultable {
@@ -38,16 +41,43 @@ abstract public class Compte implements SoldeConsultable {
 		return this.getSolde();
 	}
 	
-	public void crediter(Double montant) {
+	public void effectuerVirement(Compte compteCible, Double montant) throws DebitException, CreditException {
 		
-		this.solde = this.solde + montant;
+		try {
+			this.debiter(montant);
+		} 
+		catch (DebitException de) {
+
+			throw de;
+		}
+		
+		try {
+			compteCible.crediter(montant);
+		}
+		catch(CreditException ce) {
+			
+			this.crediter(montant);
+			
+			throw ce;
+		}
 	}
 	
-	public void debiter(Double montant) {
+	public void crediter(Double montant) throws CreditException {
+		
+		if (!this.isCreditAutorise(montant)) {
+			
+			throw new CreditException(Constants.CREDIT_REFUSE + " " + this.toString() + " " + montant);
+		}
+		else {		
+			this.solde = this.solde + montant;
+		}
+	}
+	
+	public void debiter(Double montant) throws DebitException {
 		
 		if (!this.isDebitAutorise(montant)) {
 			
-			System.out.println(DEBIT_REFUSE);
+			throw new DebitException(Constants.DEBIT_REFUSE + " " + this.toString() + " " + montant);
 		}
 		else {
 			this.solde = this.solde - montant;
@@ -57,6 +87,8 @@ abstract public class Compte implements SoldeConsultable {
 	abstract public TypeCompte getTypeCompte();
 	
 	abstract protected boolean isDebitAutorise(Double montant);
+	
+	abstract protected boolean isCreditAutorise(Double montant);
 
 	@Override
 	public String toString() {

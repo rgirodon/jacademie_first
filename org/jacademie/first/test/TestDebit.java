@@ -3,28 +3,72 @@ package org.jacademie.first.test;
 import org.jacademie.first.domain.Compte;
 import org.jacademie.first.domain.CompteCourant;
 import org.jacademie.first.domain.CompteEpargne;
+import org.jacademie.first.exception.DebitException;
 
 public class TestDebit {
 
 	public static void main(String[] args) {
 		
-		Compte ce = new CompteEpargne("CE1", "CE1", 1000.0, 1.5);
+		Compte ce = new CompteEpargne("CE1", "CE1", 1000.0, 1.5, 10000.0);
+		
 		System.out.println("Au debut : " + ce);
-		ce.debiter(900.0);
+		
+		try {
+			ce.debiter(900.0);
+		} 
+		catch (DebitException e) {
+			
+			System.out.println(e.getMessage());
+		}
+		
 		System.out.println("Apres 1er debit : " + ce);
-		ce.debiter(200.0);
+		
+		try {
+			ce.debiter(200.0);
+		} 
+		catch (DebitException e) {
+			
+			System.out.println(e.getMessage());
+		}
+		
 		System.out.println("Apres 2e debit : " + ce);
 		
 		System.out.println("");
 		
 		Compte cc = new CompteCourant("CC1", "CC1", 1000.0, 200.0);
+		
 		System.out.println("Au debut : " + cc);
-		cc.debiter(900.0);
+		
+		try {
+			cc.debiter(900.0);
+		} 
+		catch (DebitException e) {
+			
+			System.out.println(e.getMessage());
+		}		
+		
 		System.out.println("Apres 1er debit : " + cc);
-		cc.debiter(200.0);
+		
+		try {
+			cc.debiter(200.0);
+		} 
+		catch (DebitException e) {
+			
+			System.out.println(e.getMessage());
+		}
+		
 		System.out.println("Apres 2e debit : " + cc);
-		cc.debiter(200.0);
+		
+		try {
+			cc.debiter(200.0);
+		} 
+		catch (DebitException e) {
+			
+			System.out.println(e.getMessage());
+		}
+		
 		System.out.println("Apres 3e debit : " + cc);
+		
 		
 		
 		/*
