@@ -1,7 +1,9 @@
 package org.jacademie.first.domain;
 
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 
 public class Client {
 
@@ -11,14 +13,14 @@ public class Client {
 	
 	private String nom;
 	
-	private Collection<Compte> comptes;
+	private Map<String, Compte> comptesMap;
 	
 	public Client(String identifiant, String prenom, String nom) {
 		super();
 		this.identifiant = identifiant;
 		this.prenom = prenom;
 		this.nom = nom;
-		this.comptes = new HashSet<Compte>();
+		this.comptesMap = new HashMap<>();
 	}
 
 	@Override
@@ -27,7 +29,7 @@ public class Client {
 		StringBuilder sb = new StringBuilder();
 		
 		sb.append( "Client [identifiant=" + identifiant + ", prenom=" + prenom
-				+ ", nom=" + nom + ", nbComptes=" + this.comptes.size() + "] ");
+				+ ", nom=" + nom + ", nbComptes=" + this.comptesMap.size() + "] ");
 		
 		sb.append("Avoir Global : ").append(this.calculerAvoirGlobal());
 		
@@ -38,7 +40,7 @@ public class Client {
 		
 		Double total = 0.0;
 		
-		for (Compte compte : this.comptes) {
+		for (Compte compte : this.getComptes()) {
 			
 			total += compte.getSolde();
 		}
@@ -46,40 +48,29 @@ public class Client {
 		return total;
 	}
 	
+	public Collection<Compte> getComptes() {
+		
+		return comptesMap.values();
+	}
+	
 	public void ajouterCompte(Compte compte) {
 		
-		this.comptes.add(compte);
+		this.comptesMap.put(compte.getNumero(), compte);
 	}
 	
 	public void supprimerCompte(Compte compte) {
 		
-		this.comptes.remove(compte);
+		this.comptesMap.remove(compte.getNumero());
 	}
 	
 	public Compte retrouverCompte(String numero) {
 		
-		Compte result = null;
-		
-		for (Compte compte : this.comptes) {
-			
-			if (compte.getNumero().equals(numero)) {
-				
-				result = compte;
-				break;
-			}
-		}
-		
-		return result;
+		return this.comptesMap.get(numero);
 	}
 	
 	public void supprimerCompte(String numero) {
 		
-		Compte compte = this.retrouverCompte(numero);
-		
-		if (compte != null) {
-			
-			this.supprimerCompte(compte);
-		}
+		this.comptesMap.remove(numero);
 	}
 
 	public String getIdentifiant() {
@@ -106,7 +97,5 @@ public class Client {
 		this.nom = nom;
 	}
 
-	public Collection<Compte> getComptes() {
-		return comptes;
-	}
+	
 }
