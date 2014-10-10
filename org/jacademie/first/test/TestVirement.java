@@ -3,6 +3,7 @@ package org.jacademie.first.test;
 import org.jacademie.first.domain.Compte;
 import org.jacademie.first.domain.CompteCourant;
 import org.jacademie.first.domain.CompteEpargne;
+import org.jacademie.first.exception.CompteException;
 import org.jacademie.first.exception.CreditException;
 import org.jacademie.first.exception.DebitException;
 
@@ -19,11 +20,8 @@ public class TestVirement {
 		try {
 			ce1.effectuerVirement(cc1, 900.0);
 		} 
-		catch (DebitException dex) {			
-			System.out.println(dex.getMessage());
-		}
-		catch (CreditException cex) {
-			System.out.println(cex.getMessage());
+		catch (CompteException ex) {			
+			System.out.println(ex.getMessage());
 		}
 		
 		System.out.println("Apres 1er debit : " + ce1);
@@ -32,11 +30,8 @@ public class TestVirement {
 		try {
 			ce1.effectuerVirement(cc1, 200.0);
 		} 
-		catch (DebitException dex) {			
-			System.out.println(dex.getMessage());
-		}
-		catch (CreditException cex) {
-			System.out.println(cex.getMessage());
+		catch (CompteException ex) {			
+			System.out.println(ex.getMessage());
 		}
 				
 		System.out.println("Apres 2e debit : " + ce1);
@@ -53,11 +48,8 @@ public class TestVirement {
 		try {
 			cc2.effectuerVirement(ce2, 9000.0);
 		} 
-		catch (DebitException dex) {			
-			System.out.println(dex.getMessage());
-		}
-		catch (CreditException cex) {
-			System.out.println(cex.getMessage());
+		catch (CompteException ex) {			
+			System.out.println(ex.getMessage());
 		}
 		
 		System.out.println("Apres 1er debit : " + ce2);
@@ -66,11 +58,8 @@ public class TestVirement {
 		try {
 			cc2.effectuerVirement(ce2, 1000.0);
 		} 
-		catch (DebitException dex) {			
-			System.out.println(dex.getMessage());
-		}
-		catch (CreditException cex) {
-			System.out.println(cex.getMessage());
+		catch (CompteException ex) {			
+			System.out.println(ex.getMessage());
 		}
 				
 		System.out.println("Apres 2e debit : " + ce2);

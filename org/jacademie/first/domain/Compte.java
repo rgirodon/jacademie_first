@@ -3,6 +3,7 @@ package org.jacademie.first.domain;
 import static org.jacademie.first.constants.Constants.DEBIT_REFUSE;
 
 import org.jacademie.first.constants.Constants;
+import org.jacademie.first.exception.CompteException;
 import org.jacademie.first.exception.CreditException;
 import org.jacademie.first.exception.DebitException;
 import org.jacademie.first.util.SoldeConsultable;
@@ -41,7 +42,7 @@ abstract public class Compte implements SoldeConsultable {
 		return this.getSolde();
 	}
 	
-	public void effectuerVirement(Compte compteCible, Double montant) throws DebitException, CreditException {
+	public void effectuerVirement(Compte compteCible, Double montant) throws CompteException {
 		
 		try {
 			this.debiter(montant);
