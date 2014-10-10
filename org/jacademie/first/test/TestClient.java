@@ -10,9 +10,11 @@ public class TestClient {
 
 	public static void main(String[] args) {
 
-		Client[] tabClients = new Client[3];
+		Client c = new Client("ID",
+							  "Prenom",
+							  "Nom");
 		
-		for (int i = 0; i < tabClients.length; i++) {
+		for (int i = 0; i < 10; i++) {
 			
 			CompteCourant cc = new CompteCourant();
 			cc.setSolde(1000D);
@@ -23,29 +25,38 @@ public class TestClient {
 
 			CompteEpargne ce = null;
 			
-			if (i != (tabClients.length - 1)) {
+			if (i%2 == 1) {
 				ce = new CompteEpargne();
 				ce.setSolde(1000D);
 				ce.setIntitule("Compte Epargne " + (i+1));
-				ce.setNumero("CC" + (i+1));
+				ce.setNumero("CE" + (i+1));
 				ce.setTauxInteret(1.5);
 			}
 			
-			Client c = new Client("ID" + (i+1),
-								  "Prenom" + (i+1),
-								  "Nom" + (i+1),
-								  cc,
-								  ce
-								  );
+			if (cc != null) {
+				c.ajouterCompte(cc);
+			}
 			
-			tabClients[i] = c;
+			if (ce != null) {
+				c.ajouterCompte(ce);
+			}
+		}
+				
+		System.out.println("Before :");
+		System.out.println(c);
+		
+		Compte cc4 = c.retrouverCompte("CC4");
+		
+		if (cc4 != null) {
+			
+			System.out.println("CC4 : " + cc4);
+			
+			c.supprimerCompte(cc4);
 		}
 		
-		
-		for (Client c : tabClients) {
-			
-			System.out.println(c);
-		}
+		System.out.println("After :");
+		System.out.println(c);
+		System.out.println("");
 	}
 
 }
