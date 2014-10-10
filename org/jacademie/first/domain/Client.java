@@ -2,7 +2,6 @@ package org.jacademie.first.domain;
 
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
 
 public class Client {
@@ -29,7 +28,11 @@ public class Client {
 		StringBuilder sb = new StringBuilder();
 		
 		sb.append( "Client [identifiant=" + identifiant + ", prenom=" + prenom
-				+ ", nom=" + nom + ", nbComptes=" + this.comptesMap.size() + "] ");
+				+ ", nom=" + nom + ", "
+				+ "nbComptes=" + this.getNbComptes() 
+				+ ", nbCompteCourants=" + this.getNbCompteCourants()
+				+ ", nbCompteEpargnes=" + this.getNbCompteEpargnes()
+				+ "] ");
 		
 		sb.append("Avoir Global : ").append(this.calculerAvoirGlobal());
 		
@@ -46,6 +49,36 @@ public class Client {
 		}
 		
 		return total;
+	}
+	
+	public Integer getNbComptes() {
+		
+		return this.comptesMap.size();
+	}
+	
+	private Integer getNbComptesForType(TypeCompte typeCompte) {
+		
+		Integer result = 0;
+		
+		for (Compte compte : this.getComptes()) {
+			
+			if (compte.getTypeCompte() == typeCompte) {
+				
+				result++;
+			}
+		}
+		
+		return result;
+	}
+	
+	public Integer getNbCompteCourants() {
+		
+		return this.getNbComptesForType(TypeCompte.COMPTE_COURANT);
+	}
+	
+	public Integer getNbCompteEpargnes() {
+		
+		return this.getNbComptesForType(TypeCompte.COMPTE_EPARGNE);
 	}
 	
 	public Collection<Compte> getComptes() {
