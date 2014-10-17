@@ -32,9 +32,17 @@ public class FileReader {
 			
 			String readLine = null;
 			
+			boolean isFirstLine = true;
+			
 			while ((readLine = br.readLine()) != null) {
 				
-				sb.append(readLine).append("\n");
+				if (!isFirstLine) {
+					sb.append("\n");
+				}
+				
+				sb.append(readLine);
+				
+				isFirstLine = false;
 			}
 			
 			logger.info("Simple read text file done.");

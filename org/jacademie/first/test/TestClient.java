@@ -1,5 +1,7 @@
 package org.jacademie.first.test;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.jacademie.first.domain.Client;
 import org.jacademie.first.domain.Compte;
 import org.jacademie.first.domain.CompteCourant;
@@ -8,6 +10,8 @@ import org.jacademie.first.domain.CompteEpargne;
 
 public class TestClient {
 
+	private static final Logger logger = LogManager.getLogger();
+	
 	public static void main(String[] args) {
 
 		Client c = new Client("ID",
@@ -42,21 +46,21 @@ public class TestClient {
 			}
 		}
 				
-		System.out.println("Before :");
-		System.out.println(c);
+		logger.info("Before :");
+		logger.info(c);
 		
 		Compte cc4 = c.retrouverCompte("CC4");
 		
 		if (cc4 != null) {
 			
-			System.out.println("CC4 : " + cc4);
+			logger.info("CC4 : " + cc4);
 			
 			c.supprimerCompte(cc4);
 		}
 		
-		System.out.println("After :");
-		System.out.println(c);
-		System.out.println("");
+		logger.info("After :");
+		logger.info(c);
+		logger.info("");
 	}
 
 }
