@@ -11,12 +11,14 @@ import org.junit.Test;
 
 public class TestMathUtil {
 
-	private List<Integer> integers;
+	public static final Double DELTA = 0.0000000001;
+	
+	private List<Double> notes;
 	
 	@Before
 	public void init() {
 		
-		this.integers = new ArrayList<Integer>();
+		this.notes = new ArrayList<Double>();
 	}
 	
 	@Test
@@ -28,24 +30,25 @@ public class TestMathUtil {
 	@Test
 	public void testCalculerMoyenneWithEmpty() {
 
-		assertEquals((Integer)0, MathUtil.calculerMoyenne(this.integers));
+		assertEquals((Double)0.0, MathUtil.calculerMoyenne(this.notes));
 	}
 	
 	@Test
 	public void testCalculerMoyenneWithOneElementList() {
 		
-		this.integers.add(2);
+		this.notes.add(2.0);
 		
-		assertEquals((Integer)2, MathUtil.calculerMoyenne(this.integers));
+		assertEquals((Double)2.0, MathUtil.calculerMoyenne(this.notes));
 	}
 	
 	@Test
 	public void testCalculerMoyenneWithMultiElementList() {
 		
-		this.integers.add(2);
-		this.integers.add(8);
-		this.integers.add(14);
+		this.notes.add(12.5);
+		this.notes.add(7.5);
+		this.notes.add(14.0);
+		this.notes.add(12.0);
 		
-		assertEquals((Integer)8, MathUtil.calculerMoyenne(this.integers));
+		assertEquals((Double)11.5, MathUtil.calculerMoyenne(this.notes), DELTA);
 	}
 }

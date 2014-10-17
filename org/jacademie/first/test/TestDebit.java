@@ -4,105 +4,88 @@ import org.jacademie.first.domain.Compte;
 import org.jacademie.first.domain.CompteCourant;
 import org.jacademie.first.domain.CompteEpargne;
 import org.jacademie.first.exception.DebitException;
+import org.junit.Assert;
+import org.junit.Test;
 
 public class TestDebit {
 
-	public static void main(String[] args) {
+	@Test
+	public void testDebitCompteEpargneOk() {
 		
 		Compte ce = new CompteEpargne("CE1", "CE1", 1000.0, 1.5, 10000.0);
-		
-		System.out.println("Au debut : " + ce);
 		
 		try {
 			ce.debiter(900.0);
 		} 
 		catch (DebitException e) {
 			
-			System.out.println(e.getMessage());
+			Assert.fail();
 		}
 		
-		System.out.println("Apres 1er debit : " + ce);
+		Assert.assertEquals((Double)100.0, ce.getSolde());
+	}
+	
+	@Test	
+	public void testDebitCompteEpargneNotOk() {
+		
+		Compte ce = new CompteEpargne("CE1", "CE1", 1000.0, 1.5, 10000.0);
 		
 		try {
-			ce.debiter(200.0);
+			ce.debiter(1100.0);
+			
+			Assert.fail();
 		} 
 		catch (DebitException e) {
 			
-			System.out.println(e.getMessage());
+			Assert.assertEquals((Double)1000.0, ce.getSolde());
 		}
-		
-		System.out.println("Apres 2e debit : " + ce);
-		
-		System.out.println("");
+	}
+	
+	@Test
+	public void testDebitCompteCourantOkSansDecouvert() {
 		
 		Compte cc = new CompteCourant("CC1", "CC1", 1000.0, 200.0);
-		
-		System.out.println("Au debut : " + cc);
 		
 		try {
 			cc.debiter(900.0);
 		} 
 		catch (DebitException e) {
 			
-			System.out.println(e.getMessage());
-		}		
-		
-		System.out.println("Apres 1er debit : " + cc);
-		
-		try {
-			cc.debiter(200.0);
-		} 
-		catch (DebitException e) {
-			
-			System.out.println(e.getMessage());
+			Assert.fail();
 		}
 		
-		System.out.println("Apres 2e debit : " + cc);
-		
-		try {
-			cc.debiter(200.0);
-		} 
-		catch (DebitException e) {
-			
-			System.out.println(e.getMessage());
-		}
-		
-		System.out.println("Apres 3e debit : " + cc);
-		
-		
-		
-		/*
-		Compte cc0 = new CompteCourant("CC0", "CC0", 1000.0, 200.0);		
-		// System.out.println(cc0);
-		
-		Compte cc1 = new CompteCourant("CC1", "CC1", 1000.0, 200.0);
-		// System.out.println(cc1);
-		
-		Compte ce0 = new CompteEpargne("CE0", "CE0", 1000.0, 1.5);
-		// System.out.println(ce0);
-		
-		Compte ce1 = new CompteEpargne("CE1", "CE1", 1000.0, 1.5);
-		// System.out.println(ce1);
-		
-		Compte[] tabComptes = new Compte[4];
-		tabComptes[0] = cc0;
-		tabComptes[1] = ce0;
-		tabComptes[2] = cc1;
-		tabComptes[3] = ce1;
-		
-		for (Compte compte : tabComptes) {
-			
-			System.out.println(compte);
-			
-			if (compte instanceof CompteCourant) {
-				
-				// cast
-				CompteCourant compteCourant = (CompteCourant)compte;
-				
-				compteCourant.methodeDeCompteCourant();
-			}
-		}
-		*/
+		Assert.assertEquals((Double)100.0, cc.getSolde());
 	}
-
+	
+	@Test
+	public void testDebitCompteCourantOkAvecDecouvert() {
+		
+		Compte cc = new CompteCourant("CC1", "CC1", 1000.0, 200.0);
+		
+		try {
+			cc.debiter(1100.0);
+		} 
+		catch (DebitException e) {
+			
+			Assert.fail();
+		}
+		
+		Assert.assertEquals(-100.0D, cc.getSolde(), 0.001);
+	}
+	
+	@Test
+	public void testDebitCompteCourantNotOk() {
+		
+		Compte cc = new CompteCourant("CC1", "CC1", 1000.0, 200.0);
+		
+		try {
+			cc.debiter(1300.0);
+			
+			Assert.fail();
+		} 
+		catch (DebitException e) {
+			
+			Assert.assertEquals(1000.0D, cc.getSolde(), 0.001);
+		}
+	}
 }
