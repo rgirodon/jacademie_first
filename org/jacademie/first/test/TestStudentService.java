@@ -8,7 +8,9 @@ import org.jacademie.first.domain.Student;
 import org.jacademie.first.service.impl.StudentServiceImpl;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 
 public class TestStudentService {
 
@@ -16,14 +18,15 @@ public class TestStudentService {
 	
 	private StudentServiceImpl studentServiceImpl;
 	
+	@Mock
 	private StudentDAO studentDAO;
 	
 	@Before
 	public void init() {
 		
-		this.studentServiceImpl = new StudentServiceImpl();
+		MockitoAnnotations.initMocks(this);
 		
-		this.studentDAO = Mockito.mock(StudentDAO.class);
+		this.studentServiceImpl = new StudentServiceImpl();
 		
 		this.studentServiceImpl.setStudentDAO(this.studentDAO);
 	}
