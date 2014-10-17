@@ -8,9 +8,11 @@ import org.jacademie.first.util.SoldeConsultable;
 
 public class TestAverageCalculator {
 
-	static final Logger logger = LogManager.getLogger();
+	private static final Logger logger = LogManager.getLogger();
 	
 	public static void main(String[] args) {
+		
+		logger.debug("Debut du programme...");
 		
 		SoldeConsultable[] testData1 = TestDataProvider.buildSoldeConsultableDataFirstSet();
 		
@@ -19,6 +21,8 @@ public class TestAverageCalculator {
 		SoldeConsultable[] testData2 = TestDataProvider.buildSoldeConsultableDataSecondSet();
 		
 		logger.info("2nd Set Average Data : " + AverageCalculator.calculateAverage(testData2));
+		
+		logger.debug("Fin du programme.");
 	}
 
 }
